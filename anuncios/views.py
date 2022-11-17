@@ -9,3 +9,13 @@ def home(request):
     ultimos_anuncios = Anuncio.objects.all()[:12]
 
     return render(request, 'home.html', {'categorias': categorias, 'anuncios': ultimos_anuncios})
+
+
+def categoria(request, categoria_id):
+    categorias = Categoria.objects.all()
+
+    categoria = Categoria.objects.get(id=categoria_id)
+
+    anuncios = Anuncio.objects.filter(categoria=categoria)
+
+    return render(request, 'home.html', {'categorias': categorias, 'anuncios': anuncios})

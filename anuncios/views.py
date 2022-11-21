@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 
 from .models import Categoria
@@ -12,10 +13,10 @@ def home(request):
 
 
 def categoria(request, categoria_id):
-    categorias = Categoria.objects.all()
+    categoria = get_object_or_404(Categoria, id=categoria_id)
 
-    categoria = Categoria.objects.get(id=categoria_id)
+    categorias = Categoria.objects.all()
 
     anuncios = Anuncio.objects.filter(categoria=categoria)
 
-    return render(request, 'home.html', {'categorias': categorias, 'anuncios': anuncios})
+    return render(request, 'home.html', {'categorias': categorias, 'anuncios': anuncios, 'categoria': categoria})
